@@ -27,8 +27,7 @@ func (*REDIS) NewClient(addr string, password string, bd int) *redis.Client {
 }
 
 // Set adds a key/value
-func (*REDIS) Set(client *redis.Client, key string, value string, expiration time.Duration) {
-	// TODO: Support values with different types, not only strings. See (redis.Client).Set docs.
+func (*REDIS) Set(client *redis.Client, key string, value interface{}, expiration time.Duration) {
 	// TODO: Make expiration configurable. Or document somewhere the unit.
 	err := client.Set(key, value, expiration*time.Second).Err()
 	if err != nil {
