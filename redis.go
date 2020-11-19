@@ -11,7 +11,7 @@ func init() {
 	modules.Register("k6/x/redis", new(REDIS))
 }
 
-// REDIS is the k6 Redis plugin.
+// REDIS is the k6 Redis extension.
 type REDIS struct{}
 
 // NewClient creates a new Redis client
