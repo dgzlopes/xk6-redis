@@ -1,4 +1,4 @@
-module github.com/dgzlopes/k6-extension-redis
+module github.com/dgzlopes/xk6-redis
 
 go 1.15
 
