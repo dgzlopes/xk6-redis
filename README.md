@@ -21,7 +21,7 @@ Then:
 
 2. Build the binary:
   ```shell
-  $ xk6 build --with github.com/dgzlopes/xk6-redis
+  $ xk6 build --with github.com/dgzlopes/xk6-redis@latest
   ```
 
 ## Example
