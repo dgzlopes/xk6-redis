@@ -14,10 +14,10 @@ github.com/go-redis/redis/internal/hashtag
 github.com/go-redis/redis/internal/pool
 github.com/go-redis/redis/internal/proto
 github.com/go-redis/redis/internal/util
-# github.com/loadimpact/k6 v0.29.0
+# go.k6.io/k6 v0.29.0
 ## explicit
-github.com/loadimpact/k6/js/internal/modules
-github.com/loadimpact/k6/js/modules
+go.k6.io/k6/js/internal/modules
+go.k6.io/k6/js/modules
 # github.com/yuin/gopher-lua v0.0.0-20191220021717-ab39c6098bdb
 github.com/yuin/gopher-lua
 github.com/yuin/gopher-lua/ast
