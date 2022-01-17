@@ -5,15 +5,15 @@ import (
 	"time"
 
 	"github.com/alicebob/miniredis/v2"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var extension = new(REDIS)
 
 func TestRedis(t *testing.T) {
 	mr, err := miniredis.Run()
-	if err != nil {
-		panic(err)
-	}
+	require.NoError(t, err)
 	defer mr.Close()
 
 	client := extension.NewClient(mr.Addr(), "", 0)
@@ -32,10 +32,14 @@ func TestRedis(t *testing.T) {
 	}
 
 	// Custom command:
-	gets = extension.Do(client, "PING", "")
-	if gets != "PONG" {
-		t.Fatal("'PONG' should have been returned")
-	}
+	result, err := extension.Do(client, "PING")
+	require.NoError(t, err)
+	assert.Equal(t, "PONG", result)
+
+	// Custom command:
+	result, err = extension.Do(client, "SADD", "foo", "bar")
+	require.NoError(t, err)
+	assert.Equal(t, int64(1), result)
 
 	// TTL and expiration:
 	extension.Set(client, "foo", "bar", 5)
