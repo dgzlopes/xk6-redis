@@ -1,9 +1,10 @@
 package redis
 
 import (
+	"fmt"
 	"time"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"go.k6.io/k6/js/modules"
 )
 
@@ -53,15 +54,13 @@ func (*REDIS) Del(client *redis.Client, key string) {
 }
 
 // Do runs arbitrary/custom commands
-func (*REDIS) Do(client *redis.Client, cmd string, key string) string {
-	val, err := client.Do(cmd, key).Result()
+func (*REDIS) Do(client *redis.Client, args ...interface{}) (interface{}, error) {
+	val, err := client.Do(args...).Result()
 	if err != nil {
 		if err == redis.Nil {
-			ReportError(err, "Key does not exist")
-		} else {
-			ReportError(err, "Failed to do command")
+			return "", fmt.Errorf("key does not exist: %w", err)
 		}
+		return "", err
 	}
-	// TODO: Support more types, not only strings.
-	return val.(string)
+	return val, nil
 }
