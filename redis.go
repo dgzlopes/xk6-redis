@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -30,7 +31,7 @@ func (*REDIS) NewClient(addr string, password string, bd int) *redis.Client {
 // Set adds a key/value
 func (*REDIS) Set(client *redis.Client, key string, value interface{}, expiration time.Duration) {
 	// TODO: Make expiration configurable. Or document somewhere the unit.
-	err := client.Set(key, value, expiration*time.Second).Err()
+	err := client.Set(context.Background(), key, value, expiration*time.Second).Err()
 	if err != nil {
 		ReportError(err, "Failed to set the specified key/value pair")
 	}
@@ -38,7 +39,7 @@ func (*REDIS) Set(client *redis.Client, key string, value interface{}, expiratio
 
 // Get gets a key/value
 func (*REDIS) Get(client *redis.Client, key string) string {
-	val, err := client.Get(key).Result()
+	val, err := client.Get(context.Background(), key).Result()
 	if err != nil {
 		ReportError(err, "Failed to get the specified key")
 	}
@@ -47,7 +48,7 @@ func (*REDIS) Get(client *redis.Client, key string) string {
 
 // Del removes a key/value
 func (*REDIS) Del(client *redis.Client, key string) {
-	err := client.Del(key).Err()
+	err := client.Del(context.Background(), key).Err()
 	if err != nil {
 		ReportError(err, "Failed to remove the specified key")
 	}
@@ -55,7 +56,7 @@ func (*REDIS) Del(client *redis.Client, key string) {
 
 // Do runs arbitrary/custom commands
 func (*REDIS) Do(client *redis.Client, args ...interface{}) (interface{}, error) {
-	val, err := client.Do(args...).Result()
+	val, err := client.Do(context.Background(), args...).Result()
 	if err != nil {
 		if err == redis.Nil {
 			return "", fmt.Errorf("key does not exist: %w", err)
