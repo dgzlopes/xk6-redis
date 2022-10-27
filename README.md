@@ -1,9 +1,10 @@
+# DEPRECATED
+
+Redis support is now part of k6. Please, check our [docs](https://k6.io/docs/javascript-api/k6-experimental/redis/), and the [release notes](https://github.com/grafana/k6/blob/master/release%20notes/v0.39.0.md#k6experimental-js-modules).
+
 # xk6-redis
 
 This is a [k6](https://go.k6.io/k6) extension using the [xk6](https://github.com/grafana/xk6) system.
-
-| :exclamation: This is a proof of concept, isn't supported by the k6 team, and may break in the future. USE AT YOUR OWN RISK! |
-|------|
 
 ## Build
 
